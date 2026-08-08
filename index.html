@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeNest</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><i class="fa-solid fa-feather-pointed"></i> VibeNest</div>
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-input" placeholder="Search for people, posts, etc...">
+        </div>
+        <div class="nav-icons">
+            <a href="#" class="active"><i class="fa-solid fa-house"></i></a>
+            <a href="#"><i class="fa-solid fa-users"></i></a>
+            <a href="#" class="icon-badge"><i class="fa-regular fa-bell"></i><span>3</span></a>
+            <a href="#" class="icon-badge"><i class="fa-regular fa-comment-dots"></i><span>5</span></a>
+            <div class="profile-thumb" id="nav-profile">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Avatar">
+                <span class="user-name">Nawsin</span>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <aside class="sidebar-left">
+            <div class="user-profile-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="profile-pic">
+                <div class="user-info">
+                    <h4 id="user-display-name">Nawsin Tabassum</h4>
+                    <p id="user-handle">@nawsin_07</p>
+                </div>
+            </div>
+
+            <nav class="side-menu">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#"><i class="fa-regular fa-compass"></i> Explore</a>
+                <a href="#"><i class="fa-regular fa-bell"></i> Notifications <span class="badge">3</span></a>
+                <a href="#"><i class="fa-regular fa-envelope"></i> Messages</a>
+                <a href="#"><i class="fa-regular fa-bookmark"></i> Bookmarks</a>
+                <a href="#"><i class="fa-solid fa-bookmark"></i> Saved Posts</a>
+                <a href="#"><i class="fa-regular fa-user"></i> Profile</a>
+                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+
+            <button type="button" class="btn-create-post" id="open-modal-btn"><i class="fa-solid fa-plus"></i> Create Post</button>
+
+            <div class="suggested-box">
+                <h3>Suggested for you</h3>
+                <div class="suggest-user">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100">
+                    <div>
+                        <h4>Tahsin Ahmed</h4>
+                        <p>@tahsin_ahmed</p>
+                    </div>
+                    <button type="button" class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+                </div>
+                <div class="suggest-user">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100">
+                    <div>
+                        <h4>Meherun Nesa</h4>
+                        <p>@meherun.nesa</p>
+                    </div>
+                    <button type="button" class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+        </aside>
+        <main class="feed">
+            <div class="story-container">
+                <div class="story-card add-story" onclick="addStory()">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100">
+                    <div class="add-icon"><i class="fa-solid fa-plus"></i></div>
+                    <span>Your story</span>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100">
+                    <span>Ashikur</span>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100">
+                    <span>Sadia Islam</span>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100">
+                    <span>Riad Hossain</span>
+                </div>
+            </div>
+            <div class="create-post-card">
+                <div class="post-input-row">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="profile-pic">
+                    <input type="text" id="post-text-input" placeholder="What's on your mind, Nawrin?">
+                </div>
+                <input type="text" id="post-image-input" placeholder="Image URL (optional)..." class="image-url-field">
+                <div class="post-actions-row">
+                    <button type="button" class="action-btn" onclick="focusPostInput()"><i class="fa-regular fa-image" style="color:#4CAF50;"></i> Photo/Video</button>
+                    <button type="button" class="action-btn" onclick="alert('Tagging feature coming soon!')"><i class="fa-solid fa-user-tag" style="color:#2196F3;"></i> Tag people</button>
+                    <button type="button" class="action-btn" onclick="alert('Feeling feature coming soon!')"><i class="fa-regular fa-face-smile" style="color:#FF9800;"></i> Feeling/Activity</button>
+                    <button type="button" class="btn-post-submit" id="submit-post-btn">Post</button>
+                </div>
+            </div>
+            <div id="posts-feed"></div>
+        </main>
+
+        <aside class="sidebar-right">
+            <div class="right-box">
+                <h3>People you may know</h3>
+                <div class="suggest-user">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100">
+                    <div>
+                        <h4>Arman Hossain</h4>
+                        <p>@arman.hossain</p>
+                    </div>
+                    <button type="button" class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+
+            <div class="right-box">
+                <h3>Trending</h3>
+                <div class="trend-item">
+                    <p>#WebDevelopment</p>
+                    <small>12.5K posts</small>
+                </div>
+                <div class="trend-item">
+                    <p>#JavaScript</p>
+                    <small>8.3K posts</small>
+                </div>
+                <div class="trend-item">
+                    <p>#CodingLife</p>
+                    <small>15.2K posts</small>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
