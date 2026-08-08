@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeNest - Create Post</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fas fa-feather-alt"></i> VibeNest</a>
+        <div class="nav-icons">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="profile.html"><img src="" id="nav-profile-img" class="avatar" alt="Avatar"></a>
+        </div>
+    </nav>
+
+    <div style="max-width: 600px; margin: 30px auto;" class="card">
+        <h2>Create a New Post</h2>
+        <form onsubmit="handleCreatePost(event)" style="margin-top: 20px;">
+            <div class="form-group">
+                <label>Post Content</label>
+                <textarea id="post-content" rows="5" required placeholder="Write something awesome..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL (Optional)</label>
+                <input type="text" id="post-image" placeholder="https://example.com/image.jpg">
+            </div>
+            <button type="submit" class="btn-primary">Publish Post</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        checkAuth();
+        setupNavbar();
+    </script>
+</body>
+</html>
