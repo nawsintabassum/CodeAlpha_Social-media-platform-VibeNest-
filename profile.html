@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeNest - User Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fas fa-feather-alt"></i> VibeNest</a>
+        <div class="nav-icons">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </nav>
+
+    <div style="max-width: 800px; margin: 20px auto;" class="container-single">
+        <div class="card">
+            <div class="profile-header">
+                <img src="" id="profile-img" class="profile-avatar" alt="User Profile Image">
+                <div>
+                    <h2 id="profile-name">Loading...</h2>
+                    <p id="profile-email" style="color:var(--text-muted);"></p>
+                    <p id="profile-bio" style="margin-top:5px;"></p>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item"><strong id="stat-posts">0</strong><br>Posts</div>
+                        <div class="stat-item"><strong id="stat-followers">0</strong><br>Followers</div>
+                        <div class="stat-item"><strong id="stat-following">0</strong><br>Following</div>
+                    </div>
+
+                    <div id="profile-actions"></div>
+                </div>
+            </div>
+            <div id="edit-profile-form" style="display: none; border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;">
+                <h3>Edit Profile</h3>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="edit-name">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="edit-bio"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Profile Image URL</label>
+                    <input type="text" id="edit-image">
+                </div>
+                <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </div>
+
+        <h3>Posts</h3>
+        <div id="user-posts-container" style="margin-top: 15px;"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        checkAuth();
+        setupNavbar();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentUser = getUser();
+        const profileUserId = urlParams.get('id') || currentUser.id;
+
+        async function loadProfile() {
+            try {
+                const res = await fetch(`${API_URL}/users/${profileUserId}`, { headers: authHeaders() });
+                const user = await res.json();
+
+                document.getElementById('profile-img').src = user.profile_image || 'https://via.placeholder.com/150';
+                document.getElementById('profile-name').innerText = user.name;
+                document.getElementById('profile-email').innerText = user.email;
+                document.getElementById('profile-bio').innerText = user.bio || 'No bio provided.';
+                
+                document.getElementById('stat-posts').innerText = user.stats.posts;
+                document.getElementById('stat-followers').innerText = user.stats.followers;
+                document.getElementById('stat-following').innerText = user.stats.following;
+
+                const actionContainer = document.getElementById('profile-actions');
+                actionContainer.innerHTML = '';
+
+                if (parseInt(currentUser.id) === parseInt(profileUserId)) {
+                    actionContainer.innerHTML = `<button class="btn-secondary" onclick="toggleEditProfile()">Edit Profile</button>`;
+                    document.getElementById('edit-name').value = user.name;
+                    document.getElementById('edit-bio').value = user.bio || '';
+                    document.getElementById('edit-image').value = user.profile_image || '';
+                } else {
+                    actionContainer.innerHTML = `
+                        <button class="btn-primary" style="width:auto;" onclick="toggleFollow(${user.id})">
+                            ${user.isFollowing ? 'Unfollow' : 'Follow'}
+                        </button>
+                    `;
+                }
+
+                loadUserPosts(profileUserId);
+            } catch (err) {
+                console.error('Error fetching profile:', err);
+            }
+        }
+
+        async function loadUserPosts(userId) {
+            const container = document.getElementById('user-posts-container');
+            try {
+                const res = await fetch(`${API_URL}/posts/user/${userId}`, { headers: authHeaders() });
+                const posts = await res.json();
+
+                container.innerHTML = '';
+                posts.forEach(post => {
+                    container.appendChild(createPostCard(post));
+                });
+            } catch (err) {
+                console.error('Error loading user posts:', err);
+            }
+        }
+
+        function toggleEditProfile() {
+            const form = document.getElementById('edit-profile-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function saveProfile() {
+            const name = document.getElementById('edit-name').value;
+            const bio = document.getElementById('edit-bio').value;
+            const profile_image = document.getElementById('edit-image').value;
+
+            try {
+                const res = await fetch(`${API_URL}/users/profile`, {
+                    method: 'PUT',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ name, bio, profile_image })
+                });
+
+                if (res.ok) {
+                    toggleEditProfile();
+                    loadProfile();
+                }
+            } catch (err) {
+                console.error('Error updating profile:', err);
+            }
+        }
+
+        loadProfile();
+    </script>
+</body>
+</html>
