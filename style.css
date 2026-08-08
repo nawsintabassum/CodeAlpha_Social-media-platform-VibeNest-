@@ -1,0 +1,374 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6fb;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-bar {
+    background: #f1f5f9;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    width: 350px;
+    gap: 10px;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-icons a {
+    color: #64748b;
+    font-size: 18px;
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-icons a.active {
+    color: #4f46e5;
+}
+
+.icon-badge span {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #4f46e5;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    padding: 2px 6px;
+}
+
+.profile-thumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.profile-thumb img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: 260px 1fr 300px;
+    gap: 25px;
+    max-width: 1280px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.user-profile-card, .side-menu, .suggested-box, .right-box, .create-post-card, .post-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.user-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-pic {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    color: #475569;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.side-menu a:hover, .side-menu a.active {
+    background: #eef2f9;
+    color: #4f46e5;
+}
+
+.badge {
+    background: #4f46e5;
+    color: white;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: auto;
+}
+
+.btn-create-post {
+    width: 100%;
+    padding: 12px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.story-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.story-card {
+    width: 90px;
+    height: 120px;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.story-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.story-card span {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.add-story .add-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4f46e5;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.post-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.post-input-row input {
+    width: 100%;
+    padding: 12px 16px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+}
+
+.image-url-field {
+    width: 100%;
+    padding: 8px 16px;
+    margin-top: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+}
+
+.post-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-post-submit {
+    background: #4f46e5;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.post-media img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 12px 0;
+}
+
+.post-stats {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.post-footer-actions {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+}
+
+.post-footer-actions button {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+.suggest-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.suggest-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.suggest-user div {
+    flex: 1;
+}
+
+.suggest-user h4 {
+    font-size: 13px;
+}
+
+.suggest-user p {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.follow-btn {
+    background: #e0e7ff;
+    color: #4f46e5;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.follow-btn.following {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.show-more {
+    display: block;
+    margin-top: 12px;
+    color: #4f46e5;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.trend-item {
+    margin-top: 10px;
+}
+
+.trend-item p {
+    font-weight: 600;
+    color: #4f46e5;
+    font-size: 14px;
+}
+
+.trend-item small {
+    color: #64748b;
+}
